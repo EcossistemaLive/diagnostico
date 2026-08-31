@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diagnóstico de Presença e Atendimento Digital — Shopping dos Pneus TIKYTO</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Diagnóstico de presença e atendimento digital — Shopping dos Pneus TIKYTO">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --deep:#06192a; --glass:rgba(10,36,61,.70); --glass-2:rgba(15,45,75,.55);
+    --accent:#00e800; --accent-dim:rgba(0,232,0,.14);
+    --txt:rgba(255,255,255,.94); --muted:rgba(168,186,200,.82); --line:rgba(255,255,255,.10);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--deep); color:var(--txt);
+    font-family:Poppins,-apple-system,Segoe UI,Roboto,sans-serif; font-weight:300; line-height:1.65;
+    background-image:radial-gradient(60rem 30rem at 15% -10%, rgba(0,232,0,.10), transparent 60%),
+                     radial-gradient(50rem 26rem at 110% 8%, rgba(0,120,200,.16), transparent 60%);
+    background-attachment:fixed;
+  }
+  .wrap{max-width:780px;margin:0 auto;padding:32px 20px 72px}
+  header{padding:8px 0 28px;border-bottom:1px solid var(--line);margin-bottom:36px}
+  .logo{height:38px;width:auto;margin-bottom:26px;opacity:.95}
+  .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600;margin:0 0 10px}
+  h1{font-size:clamp(28px,6vw,42px);line-height:1.15;margin:0 0 12px;font-weight:700;
+     background:linear-gradient(92deg,#fff 0%,#dfe7ee 45%,var(--accent) 130%);
+     -webkit-background-clip:text;background-clip:text;color:transparent}
+  .meta{color:var(--muted);font-size:14px;margin:0}
+  h2{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);
+     font-weight:600;margin:44px 0 16px}
+  .lead{font-family:Merriweather,Georgia,serif;font-size:17px;line-height:1.8;color:var(--txt)}
+  .card{background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:22px 22px;margin:14px 0;
+        backdrop-filter:blur(12px) saturate(150%);-webkit-backdrop-filter:blur(12px) saturate(150%)}
+  .metodo{font-size:14px;color:var(--muted);background:var(--glass-2)}
+  .metodo p{margin:0 0 10px}
+  .metodo p:last-child{margin-bottom:0}
+  .metodo-titulo{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600}
+  .metodo .gratis{color:var(--txt);border-left:2px solid var(--accent-dim);padding-left:14px}
+  .achado{position:relative;padding-left:26px}
+  .achado .n{position:absolute;left:22px;top:22px;font-size:12px;font-weight:700;color:var(--accent);opacity:.9}
+  .achado h3{margin:0 0 12px 22px;font-size:18px;font-weight:600;line-height:1.35}
+  .achado p{margin:0 0 10px 22px;font-size:15px}
+  .achado .porque{border-left:2px solid var(--accent-dim);padding-left:14px;margin-left:22px;color:var(--txt)}
+  .achado .fazer{color:var(--muted);font-size:14px;margin-bottom:0}
+  table{width:100%;border-collapse:collapse;margin:6px 0 0;font-size:15px}
+  th,td{padding:12px 10px;text-align:right;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left}
+  thead th{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  tbody tr.destaque{background:var(--accent-dim)}
+  tbody tr.destaque td{font-weight:600}
+  .valor{color:var(--accent);font-weight:600;white-space:nowrap}
+  .premissas{font-size:13px;color:var(--muted);margin-top:14px;padding-top:14px;border-top:1px dashed var(--line)}
+  .premissas b{color:var(--txt);font-weight:600}
+  ol.plano{list-style:none;counter-reset:p;padding:0;margin:0}
+  ol.plano li{counter-increment:p;position:relative;padding:14px 0 14px 46px;border-bottom:1px solid var(--line);font-size:15px}
+  ol.plano li:last-child{border-bottom:0}
+  ol.plano li::before{content:counter(p);position:absolute;left:0;top:12px;width:28px;height:28px;border-radius:50%;
+    border:1px solid var(--accent);color:var(--accent);font-size:13px;font-weight:600;display:grid;place-items:center}
+  .cta{display:inline-block;margin-top:8px;padding:14px 26px;border:1px solid var(--accent);border-radius:10px;
+       color:var(--accent);text-decoration:none;font-weight:600;font-size:15px;transition:transform .18s cubic-bezier(.34,1.56,.64,1),background .18s}
+  .cta:hover{background:var(--accent-dim);transform:translateY(-2px)}
+  .cta:active{transform:scale(.97)}
+  footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+  footer a{color:var(--muted)}
+  @media (max-width:520px){
+    .wrap{padding:24px 16px 56px}
+    .achado h3,.achado p,.achado .porque{margin-left:0}
+    .achado .n{position:static;display:block;margin-bottom:6px}
+    .achado{padding-left:22px}
+    th,td{padding:10px 6px;font-size:14px}
+  }
+  @media print{
+    body{background:#fff;color:#111}
+    .card{background:#fafafa;border-color:#ddd;backdrop-filter:none}
+    h1{color:#06192a;-webkit-text-fill-color:#06192a}
+    .valor,.eyebrow,h2{color:#0a7a00}
+    .cta{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img class="logo" src="https://raw.githubusercontent.com/Clebito2/ConsultoriaLive/main/Logo%20live%20oficial-21.png" alt="Live Consultoria">
+    <p class="eyebrow">Diagnóstico preparado para</p>
+    <h1>Shopping dos Pneus TIKYTO</h1>
+    <p class="meta">Serviço automotivo &middot; Setor Oeste &middot; 31/08/2026</p>
+  </header>
+
+  <div class="card metodo">
+    <p class="metodo-titulo">Por que você recebeu isto</p>
+    <p>Ninguém pediu este diagnóstico — a iniciativa foi nossa. Mapeamos empresas da região que aparecem bem no Google e fomos olhar o que acontece com quem chega até elas pela internet. A da Shopping dos Pneus TIKYTO chamou atenção, então analisamos a ficha e o site de vocês e escrevemos o que encontramos. Olhamos apenas o que é público: nenhum sistema, cadastro ou dado interno foi acessado.</p>
+    <p class="gratis">As sugestões abaixo são suas, sem custo e sem contrapartida. Dá para levar este documento para a sua equipe ou para qualquer fornecedor de confiança e executar sem falar mais com a gente. Se preferir que a Live conduza, a conversa começa no fim da página.</p>
+  </div>
+
+  <p class="lead">A Shopping dos Pneus TIKYTO aparece no Google com 1118 avaliações e nota 4,9. Isso é volume e consistência — não é resultado de sorte, é de operação. Este diagnóstico olha só uma coisa: o quanto dessa reputação está conseguindo virar cliente novo pelo caminho digital.</p>
+
+  <h2>O que encontramos</h2>
+<div class="card achado"><span class="n">01</span><h3>Sem canal próprio de atendimento</h3><p>Não há página própria, e com ela faltam também WhatsApp, formulário, agendamento e qualquer medição.</p><p class="porque">Cada contato que chega depende de alguém atender o telefone no horário comercial. O que chega à noite, no fim de semana ou durante um atendimento presencial não fica registrado em lugar nenhum.</p><p class="fazer">Um canal próprio com atendimento estruturado captura o que hoje se perde no intervalo entre uma ligação e outra.</p></div>
+<div class="card achado"><span class="n">02</span><h3>Presença apoiada só em rede social</h3><p>O link que consta no Google leva a um perfil de rede social, não a um site próprio.</p><p class="porque">O perfil funciona para quem já conhece vocês. Para quem está descobrindo agora, falta o básico: serviços organizados, endereço, horário e um canal direto. E tudo o que é construído ali pertence à plataforma, não à empresa.</p><p class="fazer">Uma página própria centraliza o que a rede social não organiza, sem abandonar o perfil.</p></div>
+  <h2>Ordem de grandeza</h2>
+<div class="card">
+  <p style="margin:0 0 14px;font-size:14px;color:var(--muted)">São cenários, não medições: não temos acesso ao seu volume real de clientes nem ao seu ticket médio — esses números estão no seu painel do Google e no seu financeiro. Escolha a linha parecida com o seu mês. Se for a do meio, a ordem de grandeza do que se perde nesses pontos é de 18 clientes por mês, ou cerca de R$ 8.100.</p>
+  <div style="overflow-x:auto"><table>
+    <thead><tr><th>Cenário</th><th>Clientes novos/mês</th><th>Perdidos nesses pontos</th><th>Por mês</th></tr></thead>
+    <tbody><tr><td>Conservador</td><td>40</td><td>9</td><td class="valor">R$ 4.050</td></tr><tr class="destaque"><td>Provável</td><td>80</td><td>18</td><td class="valor">R$ 8.100</td></tr><tr><td>Otimista</td><td>150</td><td>33</td><td class="valor">R$ 14.850</td></tr></tbody>
+  </table></div>
+  <p class="premissas">
+    <b>Premissas usadas:</b> perda de <b>22%</b> dos clientes potenciais nos dois pontos mais críticos
+    (presença apoiada só em rede social) e ticket médio de <b>R$ 450</b> por cliente novo, referência de mercado para serviço automotivo.
+    Some-se apenas o maior gargalo e metade do segundo — o objetivo é a ordem de grandeza, não o número exato.
+  </p>
+</div>
+  <h2>O que faríamos nos primeiros 30 dias</h2><div class="card"><ol class="plano"><li>Tirar a operação de dentro da rede social: página própria com endereço, serviços e canal de contato direto</li></ol></div>
+
+  <h2>Conversa</h2>
+  <div class="card">
+    <p style="margin:0 0 16px">Se algum ponto aqui fez sentido, me chame no WhatsApp. São 30 minutos de conversa — presencial ou por vídeo — para revisar isso junto e definir por onde começar. Sem apresentação de vendas e sem compromisso.</p>
+    <a class="cta" href="https://wa.me/5561996993134?text=Ola%2C%20Cl%C3%A9ber%21%20Recebi%20o%20diagnostico%20da%20Shopping%20dos%20Pneus%20TIKYTO%20e%20queria%20conversar.">Chamar o Cléber no WhatsApp</a>
+  </div>
+
+  <footer>
+    <p>Cléber Donato &middot; Live Consultoria &middot; Goiânia - GO &middot; +55 61 99699-3134 · cleberdonato@ecossistemalive.com.br</p>
+    <p>Dados públicos de ficha e avaliações via Google Maps. Diagnóstico gerado em 31/08/2026 a partir de informações públicas. Nenhum sistema, cadastro ou dado interno da empresa foi acessado.</p>
+    <p>&copy; Powered by <a href="mailto:cleberdonato@ecossistemalive.com.br">Cléber Donato</a></p>
+  </footer>
+</div>
+</body>
+</html>
