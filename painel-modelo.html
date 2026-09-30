@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Painel de Operação — modelo</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Modelo de painel de operação — Live Consultoria">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --deep:#06192a; --glass:rgba(10,36,61,.70); --glass-2:rgba(15,45,75,.55);
+    --accent:#00e800; --accent-dim:rgba(0,232,0,.14);
+    --txt:rgba(255,255,255,.94); --muted:rgba(168,186,200,.82); --line:rgba(255,255,255,.10);
+    --c1:#3F86D4; --c2:#C08018; --c3:#9B6FC4; --c4:#0FA184;
+    --alerta:#D9534F; --ok:#0FA184;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--deep);color:var(--txt);
+    font-family:Poppins,-apple-system,Segoe UI,Roboto,sans-serif;font-weight:300;line-height:1.6;
+    background-image:radial-gradient(60rem 30rem at 15% -10%, rgba(0,232,0,.08), transparent 60%),
+                     radial-gradient(50rem 26rem at 110% 8%, rgba(0,120,200,.14), transparent 60%);
+    background-attachment:fixed;}
+  .wrap{max-width:1080px;margin:0 auto;padding:30px 20px 70px}
+  header{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:12px}
+  .eyebrow{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600;margin:0 0 8px}
+  h1{font-size:clamp(24px,4.6vw,34px);line-height:1.15;margin:0 0 8px;font-weight:700}
+  .meta{color:var(--muted);font-size:13.5px;margin:0}
+  .abas{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 26px}
+  .aba{background:var(--glass-2);border:1px solid var(--line);color:var(--muted);
+    padding:9px 18px;border-radius:999px;font-size:13.5px;font-weight:400;cursor:pointer;
+    font-family:inherit;transition:all .18s}
+  .aba:hover{color:var(--txt)}
+  .aba[aria-selected="true"]{border-color:var(--accent);color:var(--accent);background:var(--accent-dim);font-weight:600}
+  .card{background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:22px;margin:14px 0;
+    backdrop-filter:blur(12px) saturate(150%);-webkit-backdrop-filter:blur(12px) saturate(150%)}
+  .hero{border-left:2px solid var(--accent)}
+  .hero .pergunta{font-family:Merriweather,Georgia,serif;font-size:16.5px;line-height:1.7;color:var(--muted);margin:0 0 14px}
+  .hero .numero{font-size:clamp(34px,7vw,52px);font-weight:700;line-height:1;color:var(--accent);letter-spacing:-.02em}
+  .hero .sub{font-size:14.5px;color:var(--txt);margin:10px 0 0}
+  h2{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600;margin:36px 0 12px}
+  .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px}
+  .tile{background:var(--glass);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .tile .v{font-size:28px;font-weight:700;line-height:1.1}
+  .tile .r{font-size:12.5px;color:var(--muted);margin-top:6px}
+  .tile .t{font-size:11px;margin-top:8px;font-weight:600;letter-spacing:.04em}
+  .t.mal{color:var(--alerta)} .t.bem{color:var(--ok)}
+  .graficos{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:760px){.graficos{grid-template-columns:1fr}}
+  .gtit{font-size:14.5px;font-weight:600;margin:0 0 4px}
+  .gsub{font-size:12.5px;color:var(--muted);margin:0 0 16px}
+  .legenda{display:flex;gap:16px;flex-wrap:wrap;margin:14px 0 0;font-size:12px;color:var(--muted)}
+  .legenda span{display:flex;align-items:center;gap:6px}
+  .chave{width:11px;height:11px;border-radius:3px;display:inline-block}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:4px}
+  th,td{padding:10px 8px;text-align:left;border-bottom:1px solid var(--line)}
+  thead th{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .pill{font-size:11px;padding:3px 9px;border-radius:999px;font-weight:600;white-space:nowrap}
+  .pill.mal{background:rgba(217,83,79,.16);color:#F09490}
+  .pill.aten{background:rgba(192,128,24,.18);color:#E0A649}
+  .pill.bem{background:rgba(15,161,132,.16);color:#3FC7AB}
+  .tabela-wrap{overflow-x:auto}
+  svg{display:block;overflow:visible}
+  .barra{transition:opacity .15s}
+  .barra:hover{opacity:.78}
+  .tip{position:fixed;pointer-events:none;background:#0a2440;border:1px solid var(--line);
+    border-radius:8px;padding:8px 11px;font-size:12.5px;color:var(--txt);opacity:0;transition:opacity .12s;
+    z-index:50;white-space:nowrap;box-shadow:0 6px 20px rgba(0,0,0,.45)}
+  .nota{font-size:12.5px;color:var(--muted);border-top:1px dashed var(--line);padding-top:14px;margin-top:16px}
+  footer{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+  .selo{background:var(--accent-dim);border:1px solid var(--accent);border-radius:12px;padding:18px 22px;margin-top:30px}
+  .selo b{color:var(--accent)}
+  .prazo{background:rgba(255,255,255,.03);border:1px solid var(--line);border-left:2px solid var(--c2);border-radius:12px;padding:16px 22px;margin-top:14px;font-size:13.5px;line-height:1.7;color:var(--muted)}
+  .prazo b{color:var(--txt);font-size:14px}
+  .oculto{display:none}
+</style>
+</head>
+<body>
+<div class="tip" id="tip"></div>
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">Modelo · dados fictícios</p>
+    <h1>Painel de Operação</h1>
+    <p class="meta">O que aparece quando o registro do dia a dia para de morar em papel e WhatsApp. Escolha o tipo de operação parecido com o seu.</p>
+  </header>
+
+  <div class="abas" role="tablist">
+    <button class="aba" role="tab" data-setor="obra" aria-selected="false">Obra e instalação</button>
+    <button class="aba" role="tab" data-setor="frota" aria-selected="false">Frota e entrega</button>
+    <button class="aba" role="tab" data-setor="facilities" aria-selected="false">Condomínios e facilities</button>
+  </div>
+
+  <div id="painel"></div>
+
+  <div class="selo">
+    <p style="margin:0 0 8px"><b>Este painel é um modelo, com números inventados.</b></p>
+    <p style="margin:0">O seu é montado com a planilha que você já usa — do jeito que ela está hoje, bagunçada mesmo. Fica pronto em 48 horas, com o nome da sua empresa, e é seu para usar com quem quiser. Sem custo e sem contrato.</p>
+  </div>
+
+  <div class="prazo">
+    <p style="margin:0 0 8px"><b>Por que agora</b></p>
+    <p style="margin:0">Em 1º de janeiro de 2027 a CBS substitui o PIS e a COFINS, e o modelo passa a ser de crédito: só entra na conta o que está documentado e amarrado à operação. Registro que ficou na planilha e nunca virou documento não gera crédito. Não sou contador e não dou palpite tributário — só que a conta que a sua contabilidade faz depende do registro que sai da operação, e é nessa ponta que eu trabalho.</p>
+  </div>
+
+  <footer>
+    <p>Cléber Donato · Live Consultoria · Goiânia - GO</p>
+    <p>Organização de dados, desenho de processos e automação.</p>
+  </footer>
+</div>
+
+<script>
+const DADOS = {
+  obra: {
+    rotulo: "Construtora Modelo",
+    pergunta: "Quanto da medição deste mês ainda não foi aprovado — e há quantos dias cada uma está parada?",
+    numero: "R$ 148.200",
+    sub: "em 6 medições paradas, a mais antiga há 23 dias. Hoje essa resposta exige ligar para três pessoas.",
+    tiles: [
+      {v:"7",  r:"Obras ativas", t:"", c:""},
+      {v:"6",  r:"Medições sem aprovação", t:"↑ 2 vs. agosto", c:"mal"},
+      {v:"3",  r:"Aditivos sem assinatura", t:"R$ 61.400 em risco", c:"mal"},
+      {v:"11", r:"Dias médios até aprovar", t:"meta: 5 dias", c:"mal"}
+    ],
+    g1: {titulo:"Medição parada por obra", sub:"valor aguardando aprovação, em R$ mil", cor:"var(--c1)", un:"R$ ",unf:" mil",
+         dados:[["Res. Portal",52.4],["Ed. Aurora",38.1],["Galpão BR-153",26.7],["Res. Vitória",18.3],["Reforma Sede",12.7]]},
+    g2: {titulo:"Dias até a aprovação", sub:"média do mês, em dias", cor:"var(--c2)", un:"", unf:" dias",
+         dados:[["Jun",6],["Jul",7],["Ago",9],["Set",11]]},
+    tabela: {
+      cols:["Obra","Etapa","Valor","Parada há","Com quem"],
+      linhas:[
+        ["Res. Portal","3ª medição","R$ 52.400","23 dias","Eng. responsável","mal"],
+        ["Ed. Aurora","Fundação","R$ 38.100","17 dias","Cliente","mal"],
+        ["Galpão BR-153","Estrutura","R$ 26.700","9 dias","Medição em campo","aten"],
+        ["Res. Vitória","Acabamento","R$ 18.300","6 dias","Financeiro","aten"],
+        ["Reforma Sede","Elétrica","R$ 12.700","2 dias","Eng. responsável","bem"]
+      ]},
+    nota: "Origem: planilha de medições + diário de obra. Nenhum dado novo foi pedido à equipe — é o mesmo registro que já é feito, num lugar só."
+  },
+  frota: {
+    rotulo: "Transportadora Modelo",
+    pergunta: "Quantas entregas deste mês estão sem canhoto assinado — e quanto isso trava de faturamento?",
+    numero: "84 entregas",
+    sub: "de 1.240 no mês, somando R$ 96.700 que não podem ser cobrados até o comprovante aparecer.",
+    tiles: [
+      {v:"1.240", r:"Entregas no mês", t:"↑ 8% vs. agosto", c:"bem"},
+      {v:"84",    r:"Sem canhoto", t:"R$ 96.700 travados", c:"mal"},
+      {v:"19",    r:"Ocorrências abertas", t:"7 há mais de 10 dias", c:"mal"},
+      {v:"5",     r:"Manutenções vencidas", t:"2 veículos rodando", c:"mal"}
+    ],
+    g1: {titulo:"Entregas sem canhoto", sub:"por motorista, no mês", cor:"var(--c1)", un:"", unf:" entregas",
+         dados:[["Marcos A.",27],["Jonas P.",19],["Edinaldo S.",14],["Rafael T.",13],["Outros",11]]},
+    g2: {titulo:"Ocorrências por semana", sub:"avaria, atraso e recusa", cor:"var(--c3)", un:"", unf:" ocorrências",
+         dados:[["S1",4],["S2",6],["S3",3],["S4",6]]},
+    tabela: {
+      cols:["Nota","Cliente","Motorista","Sem canhoto há","Valor"],
+      linhas:[
+        ["18.442","Distribuidora Sul","Marcos A.","14 dias","R$ 12.800","mal"],
+        ["18.501","Atacado Cerrado","Jonas P.","11 dias","R$ 9.400","mal"],
+        ["18.533","Mercado Bom Preço","Marcos A.","9 dias","R$ 7.100","aten"],
+        ["18.577","Constrular","Edinaldo S.","5 dias","R$ 6.200","aten"],
+        ["18.610","Farmácia Rede","Rafael T.","3 dias","R$ 4.900","bem"]
+      ]},
+    nota: "Origem: planilha de expedição + fotos de canhoto no WhatsApp. O painel só organiza o que a equipe já manda todo dia."
+  },
+  facilities: {
+    rotulo: "Prestadora Modelo",
+    pergunta: "Quantos turnos ficaram descobertos este mês, em quais contratos — e o cliente já reclamou de quais?",
+    numero: "23 turnos",
+    sub: "descobertos em 34 postos, concentrados em 3 contratos. Dois deles já viraram reclamação formal.",
+    tiles: [
+      {v:"34", r:"Postos ativos", t:"", c:""},
+      {v:"23", r:"Turnos descobertos", t:"↑ 9 vs. agosto", c:"mal"},
+      {v:"12", r:"Ocorrências abertas", t:"2 com reclamação", c:"mal"},
+      {v:"8",  r:"Chamados fora do prazo", t:"de 61 no mês", c:"aten"}
+    ],
+    g1: {titulo:"Turnos descobertos por contrato", sub:"no mês", cor:"var(--c1)", un:"", unf:" turnos",
+         dados:[["Cond. Jardins",9],["Ed. Comercial T-7",6],["Cond. Villa Real",4],["Shopping Norte",3],["Outros",1]]},
+    g2: {titulo:"Ocorrências por semana", sub:"registradas pelo encarregado", cor:"var(--c4)", un:"", unf:" ocorrências",
+         dados:[["S1",2],["S2",5],["S3",2],["S4",3]]},
+    tabela: {
+      cols:["Contrato","Posto","Data","Turno","Motivo"],
+      linhas:[
+        ["Cond. Jardins","Portaria principal","24/09","Noturno","Falta sem aviso","mal"],
+        ["Ed. Comercial T-7","Recepção","22/09","Diurno","Atestado","aten"],
+        ["Cond. Jardins","Portaria principal","19/09","Noturno","Falta sem aviso","mal"],
+        ["Cond. Villa Real","Ronda","17/09","Noturno","Troca não coberta","aten"],
+        ["Shopping Norte","Doca","15/09","Diurno","Atraso > 2h","bem"]
+      ]},
+    nota: "Origem: escala do encarregado + livro de ocorrência. Mesmo registro de sempre, só que somável e pesquisável."
+  }
+};
+
+const tip = document.getElementById('tip');
+function mostrarTip(e, txt){
+  tip.textContent = txt; tip.style.opacity = 1;
+  tip.style.left = Math.min(e.clientX + 14, window.innerWidth - tip.offsetWidth - 12) + 'px';
+  tip.style.top  = (e.clientY - 38) + 'px';
+}
+function esconderTip(){ tip.style.opacity = 0; }
+
+function barrasH(g){
+  const L=118, W=470, H=g.dados.length*34+8, max=Math.max(...g.dados.map(d=>d[1]));
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}" role="img" aria-label="${g.titulo}">`;
+  g.dados.forEach((d,i)=>{
+    const y=i*34+4, larg=Math.max(3,(d[1]/max)*(W-L-58));
+    s+=`<text x="${L-10}" y="${y+16}" text-anchor="end" font-size="12.5" fill="rgba(168,186,200,.9)">${d[0]}</text>`;
+    s+=`<rect class="barra" x="${L}" y="${y+4}" width="${larg}" height="16" rx="4" fill="${g.cor}"
+         data-tip="${d[0]}: ${g.un}${String(d[1]).replace('.',',')}${g.unf}"></rect>`;
+    s+=`<text x="${L+larg+9}" y="${y+16}" font-size="12.5" fill="rgba(255,255,255,.92)" font-weight="600">${g.un}${String(d[1]).replace('.',',')}</text>`;
+  });
+  return s+`</svg>`;
+}
+
+function barrasV(g){
+  const W=470,H=190,B=34,T=14,n=g.dados.length,max=Math.max(...g.dados.map(d=>d[1]));
+  const lg=(W-40)/n, bw=Math.min(46,lg-16);
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}" role="img" aria-label="${g.titulo}">`;
+  [0,.5,1].forEach(f=>{const y=T+(H-T-B)*(1-f);
+    s+=`<line x1="30" x2="${W-6}" y1="${y}" y2="${y}" stroke="rgba(255,255,255,.08)" stroke-width="1"></line>`;
+    s+=`<text x="24" y="${y+4}" text-anchor="end" font-size="11" fill="rgba(168,186,200,.7)">${Math.round(max*f)}</text>`;});
+  g.dados.forEach((d,i)=>{
+    const h=Math.max(3,(d[1]/max)*(H-T-B)), x=40+i*lg+(lg-bw)/2-14, y=H-B-h;
+    s+=`<rect class="barra" x="${x}" y="${y}" width="${bw}" height="${h}" rx="4" fill="${g.cor}"
+         data-tip="${d[0]}: ${d[1]}${g.unf}"></rect>`;
+    s+=`<text x="${x+bw/2}" y="${y-7}" text-anchor="middle" font-size="12.5" fill="rgba(255,255,255,.92)" font-weight="600">${d[1]}</text>`;
+    s+=`<text x="${x+bw/2}" y="${H-B+18}" text-anchor="middle" font-size="12" fill="rgba(168,186,200,.85)">${d[0]}</text>`;
+  });
+  return s+`</svg>`;
+}
+
+function render(setor){
+  const d = DADOS[setor];
+  const tiles = d.tiles.map(t=>`<div class="tile"><div class="v">${t.v}</div><div class="r">${t.r}</div>
+      ${t.t?`<div class="t ${t.c}">${t.t}</div>`:''}</div>`).join('');
+  // alinhamento pelo CONTEUDO, nao pela posicao: so numero vai para a direita
+  const ehNumero = v => /^(R\$\s?)?[\d.]+(\s?(dias|mil))?$/.test(String(v).trim());
+  const colNum = d.tabela.cols.map((_,i)=> d.tabela.linhas.every(l=> i===l.length-2 ? false : ehNumero(l[i])));
+  const linhas = d.tabela.linhas.map(l=>{
+    const st=l[l.length-1], cels=l.slice(0,-1);
+    return `<tr>${cels.map((c,i)=> i===cels.length-1
+      ? `<td><span class="pill ${st}">${c}</span></td>`
+      : `<td class="${colNum[i]?'num':''}">${c}</td>`
+    ).join('')}</tr>`;
+  }).join('');
+  document.getElementById('painel').innerHTML = `
+    <div class="card hero">
+      <p class="pergunta">${d.pergunta}</p>
+      <div class="numero">${d.numero}</div>
+      <p class="sub">${d.sub}</p>
+    </div>
+    <h2>O mês em quatro números</h2>
+    <div class="tiles">${tiles}</div>
+    <h2>Onde está concentrado</h2>
+    <div class="graficos">
+      <div class="card"><p class="gtit">${d.g1.titulo}</p><p class="gsub">${d.g1.sub}</p>${barrasH(d.g1)}</div>
+      <div class="card"><p class="gtit">${d.g2.titulo}</p><p class="gsub">${d.g2.sub}</p>${barrasV(d.g2)}</div>
+    </div>
+    <h2>O que precisa de decisão hoje</h2>
+    <div class="card">
+      <div class="tabela-wrap"><table>
+        <thead><tr>${d.tabela.cols.map((c,i)=>`<th class="${colNum[i]?'num':''}">${c}</th>`).join('')}</tr></thead>
+        <tbody>${linhas}</tbody>
+      </table></div>
+      <p class="nota">${d.nota}</p>
+    </div>`;
+  document.querySelectorAll('[data-tip]').forEach(el=>{
+    el.addEventListener('mousemove', e=>mostrarTip(e, el.dataset.tip));
+    el.addEventListener('mouseleave', esconderTip);
+  });
+}
+
+const abas = document.querySelectorAll('.aba');
+function selecionar(setor){
+  abas.forEach(a=>a.setAttribute('aria-selected', a.dataset.setor===setor));
+  render(setor);
+}
+abas.forEach(a=>a.addEventListener('click',()=>{
+  selecionar(a.dataset.setor);
+  history.replaceState(null,'','?setor='+a.dataset.setor);
+}));
+const inicial = new URLSearchParams(location.search).get('setor');
+selecionar(DADOS[inicial] ? inicial : 'obra');
+</script>
+</body>
+</html>
